@@ -1,0 +1,49 @@
+<p>var score = 0 </br>
+
+Camera.fixObjectToCamera(Ball,0,-3,-3);
+</br>
+function throwball(){
+</br>
+    Ball.turnOffPhysics();
+    Ball.setPosition(0,-3,-3);
+</br>
+    let ballX = Camera.getGazeDirection().x
+    let ballY = Camera.getGazeDirection().y
+    let ballZ = Camera.getGazeDirection().z
+</br>
+    Ball.enablePhysics('dynaic-body');
+</br>
+    let speed = 35 
+    Ball.setBodyVelocity(ballX*speed,ballY*speed,ballZ*speed);
+</br>
+            Ball.detectCollisionsWith([GoalKeeper, GoalKeeper2, GoalNet], function (colidedobject){
+                Hatch.log(colidedobject.id);
+                if(colidedobject.id == 'GoalKeeper'){
+                    score += 20;
+                    Score.setText("Score: " + score);
+</br>
+</br>
+                }
+                else if(colidedobject.id == 'GoalKeeper2'){
+</br>
+                    score += 20;
+                    Score.setText("Score: " + score);
+                    </br>
+</br>
+                }
+                else if(colidedobject.id == 'GoalNet'){
+</br>
+                    score -= 20;
+                    Score.setText("Score: " + score);
+                    </br>
+</br>
+                }
+            }); // closeing
+</br>
+}
+</br>
+Hatch.onSceneClicked(function (event) {
+    throwball()
+});
+</br>
+</p>
